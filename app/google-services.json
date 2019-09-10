@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "349498186190",
+    "firebase_url": "https://onetoonechat-4a8fc.firebaseio.com",
+    "project_id": "onetoonechat-4a8fc",
+    "storage_bucket": "onetoonechat-4a8fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349498186190:android:30d0a9884a466b96",
+        "android_client_info": {
+          "package_name": "com.kuppu.one_to_onechat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349498186190-bcg1gbhmftnj8mksbrttslm3svihgih7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kuppu.one_to_onechat",
+            "certificate_hash": "1dac25e4dc8eaf1a1f58d9718c0d47f707ef658f"
+          }
+        },
+        {
+          "client_id": "349498186190-7ufp2qo2i20l1ed7ddg3pehm5fnjan6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLLCbHKOS4yRiKenkus5UtaQqLU_vP-1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349498186190-7ufp2qo2i20l1ed7ddg3pehm5fnjan6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
