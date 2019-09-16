@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kuppu.one_to_onechat.Fragments.ChatFragment;
+import com.kuppu.one_to_onechat.Fragments.ProfileFragment;
 import com.kuppu.one_to_onechat.Fragments.UsersFragment;
 import com.kuppu.one_to_onechat.Model.User;
 
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPageAdapter viewPageAdapter=new ViewPageAdapter(getSupportFragmentManager());
         viewPageAdapter.addFragment(new ChatFragment(),"Chats");
         viewPageAdapter.addFragment(new UsersFragment(),"Users");
+        viewPageAdapter.addFragment(new ProfileFragment(),"Profile");
         viewPager.setAdapter(viewPageAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
