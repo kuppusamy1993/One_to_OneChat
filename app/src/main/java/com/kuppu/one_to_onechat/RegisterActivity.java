@@ -83,6 +83,8 @@ DatabaseReference databaseReference;
                             hashMap.put("id",id);
                             hashMap.put("username",username);
                             hashMap.put("imageURL","default");
+                            hashMap.put("status","offline");
+                            hashMap.put("search",username.toLowerCase());
 
                             databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

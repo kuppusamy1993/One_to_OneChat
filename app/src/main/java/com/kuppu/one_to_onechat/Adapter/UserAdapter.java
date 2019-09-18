@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,10 +24,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private List<User>mUsers;
     Context mContext;
+    private Boolean isChat;
 
-  public   UserAdapter(Context contexts,List<User>mUsers){
+  public   UserAdapter(Context contexts,List<User>mUsers,Boolean isChat){
         this.mContext=contexts;
         this.mUsers=mUsers;
+        this.isChat=isChat;
     }
 
     @NonNull
@@ -47,6 +50,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             Glide.with(mContext).load(user.getImageURL()).into(holder.profile_image);
         }
 
+        if (isChat){
+            if (user.getStatus().equals("online")){
+                holder.img_on.setVisibility(View.VISIBLE);
+                holder.img_off.setVisibility(View.GONE);
+            }else {
+                holder.img_on.setVisibility(View.GONE);
+                holder.img_off.setVisibility(View.VISIBLE);
+            }
+        }else {
+            holder.img_on.setVisibility(View.GONE);
+            holder.img_off.setVisibility(View.GONE);
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,10 +82,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         private TextView username;
         private CircleImageView profile_image;
+        private ImageView img_on,img_off;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             username=itemView.findViewById(R.id.username_users);
             profile_image=itemView.findViewById(R.id.profile_image_users);
+            img_on=itemView.findViewById(R.id.img_on);
+            img_off=itemView.findViewById(R.id.img_off);
         }
     }
 }
