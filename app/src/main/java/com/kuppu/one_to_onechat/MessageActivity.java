@@ -51,6 +51,7 @@ public class MessageActivity extends AppCompatActivity {
     Intent intent;
 
     ValueEventListener seenlistener;
+   String userid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +82,7 @@ recyclerView.setLayoutManager(linearLayoutManager);
 
         intent=getIntent();
 
-        final String userid=intent.getStringExtra("userid");
+        userid=intent.getStringExtra("userid");
         fuser= FirebaseAuth.getInstance().getCurrentUser();
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +153,24 @@ recyclerView.setLayoutManager(linearLayoutManager);
         hashMap.put("isseen",false);
 
         databaseReference.child("Chats").push().setValue(hashMap);
+
+        // add user to chat fragment
+        final DatabaseReference chatref=FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(fuser.getUid())
+                .child(userid);
+        chatref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()){
+                    chatref.child("id").setValue(userid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
     private void readMessages(final String myid, final String userid, final String imageurl){

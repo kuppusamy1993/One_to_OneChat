@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kuppu.one_to_onechat.Adapter.UserAdapter;
 import com.kuppu.one_to_onechat.Model.Chat;
+import com.kuppu.one_to_onechat.Model.Chatlist;
 import com.kuppu.one_to_onechat.Model.User;
 import com.kuppu.one_to_onechat.R;
 
@@ -40,7 +41,7 @@ public class ChatFragment extends Fragment {
     private List<User>mUser;
     FirebaseUser fuser;
     DatabaseReference reference;
-    private List<String>userList;
+    private List<Chatlist>userList;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -58,22 +59,17 @@ public class ChatFragment extends Fragment {
 
         fuser= FirebaseAuth.getInstance().getCurrentUser();
         userList=new ArrayList<>();
-        reference= FirebaseDatabase.getInstance().getReference("Chats");
+
+        reference=FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                userList.clear();
-
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    Chat chat=snapshot.getValue(Chat.class);
-                    if(chat.getSender().equals(fuser.getUid())){
-                        userList.add(chat.getReceiver());
-                    }
-                    if (chat.getReceiver().equals(fuser.getUid())){
-                        userList.add(chat.getSender());
-                    }
-                }
-                readChats();
+            userList.clear();
+            for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                Chatlist chatlist=snapshot.getValue(Chatlist.class);
+                userList.add(chatlist);
+                chatList();
+            }
             }
 
             @Override
@@ -82,10 +78,11 @@ public class ChatFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 
-    private void readChats(){
+    private void chatList() {
         mUser=new ArrayList<>();
 
         reference=FirebaseDatabase.getInstance().getReference("Users");
@@ -93,34 +90,11 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUser.clear();
-
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()){
-                 final    User user=snapshot.getValue(User.class);
-
-
-                   for (String id : userList){
-                        if (user.getId().equals(id)){
-
-                            if (mUser.size()!=0) {
-                                try {
-
-
-                                    for (User user1 : mUser) {
-                                        if (!user.getId().equals(user1.getId())) {
-
-                                            mUser.add(user);
-
-                                        }
-                                    }
-                                }catch (ConcurrentModificationException em){
-                                   // Log.i("users",em.getMessage());
-                                }
-                            }else {
-                                mUser.add(user);
-                               // Log.i("users","start adding");
-
-                            }
-
+                    User user=snapshot.getValue(User.class);
+                    for (Chatlist chatlist:userList){
+                        if (user.getId().equals(chatlist.getId())){
+                            mUser.add(user);
                         }
                     }
                 }
@@ -133,6 +107,8 @@ public class ChatFragment extends Fragment {
 
             }
         });
+
     }
+
 
 }

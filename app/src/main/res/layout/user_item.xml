@@ -46,4 +46,15 @@
         android:layout_marginLeft="-15dp"
         android:layout_toRightOf="@id/profile_image_users"
         android:layout_toEndOf="@id/profile_image_users"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_image_users"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/profile_image_users"
+        android:paddingTop="5dp"
+        android:id="@+id/last_msg"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginLeft="20dp"
+        android:maxLines="1"/>
 </RelativeLayout>
